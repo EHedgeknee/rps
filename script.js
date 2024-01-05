@@ -1,5 +1,8 @@
+let computerscore = 0;
+let playerscore = 0;
 
-function getcomputerchoice() {
+function getcomputerchoice() 
+{
     let randomnumber = new Date().getTime() % 3;
     let computerchoice;
     switch(randomnumber) {
@@ -16,68 +19,61 @@ function getcomputerchoice() {
     return computerchoice;
 }
 
-function getpersonchoice() {
-    let pc = prompt("Choose rock, paper, or scissors!");
-    let personchoice = pc.toLowerCase();
-    if (personchoice == "rock" || personchoice == "paper" || personchoice == "scissors") {
-        return personchoice;
-    }
-    else {
-        getpersonchoice();
-    }
+function playround(computerchoice, personchoice) 
+{
+    if ((computerchoice == "scissors" && personchoice == "rock") ||
+            (computerchoice == "rock" && personchoice == "paper") ||
+            (computerchoice == "paper" && personchoice == "scissors")
+            )
+        {
+            playerscore++;
+            return "You Win!";
+        }
+    else if ((computerchoice == "paper" && personchoice == "rock") ||
+            (computerchoice == "rock" && personchoice == "scissors") ||
+            (computerchoice == "scissors" && personchoice == "paper")
+            )
+        {
+            computerscore++;
+            return "Computer Wins!";
+        }
 }
 
+const rock = document.querySelector('#rock');
+const paper = document.querySelector('#paper');
+const scissors = document.querySelector('#scissors');
+const div = document.querySelector('.buttons')
 
-let cscore = 0;
-let pscore = 0;
 
-
-while(cscore < 3 && pscore < 3) {
+rock.addEventListener('click', function() 
+{
+    const personchoice = "rock";
     let computerchoice = getcomputerchoice();
-    let personchoice = getpersonchoice();
-    if (computerchoice == personchoice)
-        {
-            
-        }
-    else if (computerchoice == "scissors" && personchoice == "rock")
-        {
-            pscore++;
-            console.log("p beat c");
-        }
-    else if (computerchoice == "scissors" && personchoice == "paper")
-        {
-            cscore++;
-            console.log("c beat p");
-        }
-    else if (computerchoice == "rock" && personchoice == "paper")
-        {
-            pscore++;
-            console.log("p beat c");
+    const result = playround(computerchoice, personchoice);
+    const displayResult = document.createElement('p')
+    displayResult.textContent = result;
+    div.appendChild(displayResult);
+    return;
+})
 
-        }
-    else if (computerchoice == "rock" && personchoice == "scissors")
-        {
-            cscore++;
-            console.log("c beat p");
-        }
-    else if (computerchoice == "paper" && personchoice == "scissors")
-        {
-            pscore++;
-            console.log("p beat c");
-        }
-    else if (computerchoice == "paper" && personchoice == "rock")
-        {
-            cscore++;
-            console.log("c beat p");
-        }
-    
-}
+paper.addEventListener('click', function() 
+{
+    const personchoice = "paper";
+    let computerchoice = getcomputerchoice();
+    const result = playround(computerchoice, personchoice);
+    const displayResult = document.createElement('p')
+    displayResult.textContent = result;
+    div.appendChild(displayResult);
+    return;
+})
 
-
-if (cscore > pscore) {
-    console.log("computerwins");
-}
-else {
-    console.log("humanwins");
-}
-
+scissors.addEventListener('click', function() 
+{
+    const personchoice = "scissors";
+    let computerchoice = getcomputerchoice();
+    const result = playround(computerchoice, personchoice);
+    const displayResult = document.createElement('p')
+    displayResult.textContent = result;
+    div.appendChild(displayResult);
+    return;
+})
